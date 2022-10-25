@@ -1,13 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerCombat))]
+[RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
+    private const string InputX = nameof(InputX);
+    private const string InputY = nameof(InputY);
+
     [SerializeField] private float _speed;
     [SerializeField] private LayerMask _walkableLayer;
 
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         _input = GetComponent<PlayerInput>();
         _combat = GetComponent<PlayerCombat>();
         _animator = GetComponent<Animator>();
+
         _position = transform.position;
     }
 
@@ -30,8 +32,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_input.MovementInput)
         {
-            _animator.SetFloat("InputX", 1);
-            _animator.SetFloat("InputY", 1);
+            _animator.SetFloat(InputX, 1);
+            _animator.SetFloat(InputY, 1);
             LocatePosition();
         }
 
@@ -48,22 +50,19 @@ public class PlayerMovement : MonoBehaviour
         float maxDistance = 1000;
 
         if (Physics.Raycast(ray, out hit, maxDistance, _walkableLayer))
-        {
             _position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-        }
     }
 
     private void MoveToPosition()
     {
         if (Vector3.Distance(transform.position, _position) < 1)
         {
-            _animator.SetFloat("InputX", 0);
-            _animator.SetFloat("InputY", 0);
+            _animator.SetFloat(InputX, 0);
+            _animator.SetFloat(InputY, 0);
             return;
         }
 
         Quaternion newRotation = Quaternion.LookRotation(_position - transform.position, Vector3.forward);
-
         newRotation.x = 0;
         newRotation.z = 0;
 
