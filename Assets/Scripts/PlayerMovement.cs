@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerCombat))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _characterController;
     private PlayerInput _input;
+    private PlayerCombat _combat;
     private Animator _animator;
     private Vector3 _position;
 
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInput>();
+        _combat = GetComponent<PlayerCombat>();
         _animator = GetComponent<Animator>();
         _position = transform.position;
     }
@@ -29,19 +32,22 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetFloat("InputX", 1);
             _animator.SetFloat("InputY", 1);
-            _animator.SetBool("IsInAir", false);
             LocatePosition();
         }
 
-        MoveToPosition();
+        if (!_combat.AttackInProgress)
+            MoveToPosition();
+        else
+            _position = transform.position;
     }
 
     private void LocatePosition()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float maxDistance = 1000;
 
-        if (Physics.Raycast(ray, out hit, 1000, _walkableLayer))
+        if (Physics.Raycast(ray, out hit, maxDistance, _walkableLayer))
         {
             _position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }
@@ -53,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetFloat("InputX", 0);
             _animator.SetFloat("InputY", 0);
-            _animator.SetBool("IsInAir", false);
             return;
         }
 

@@ -3,19 +3,19 @@ using UnityEngine;
 namespace Retro.ThirdPersonCharacter
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(Combat))]
+    [RequireComponent(typeof(PlayerCombat))]
     public class Jumping : MonoBehaviour
     {
         private Animator _animator;
         private PlayerInput _playerInput;
-        private Combat _combat;
+        private PlayerCombat _combat;
 
         private bool isGrouned;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
-            _combat = GetComponent<Combat>();
+            _combat = GetComponent<PlayerCombat>();
         }
 
         private void Update()
