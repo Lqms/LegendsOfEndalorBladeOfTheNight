@@ -624,21 +624,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1339022635, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
+      propertyPath: _walkableLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8206711175996386055, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8206711175996386055, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.228382
+      value: 0.94316196
       objectReference: {fileID: 0}
     - target: {fileID: 8206711175996386055, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.237534
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8206711175996386055, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.91517115
+      value: -1.3569746
       objectReference: {fileID: 0}
     - target: {fileID: 8206711175996386055, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_LocalRotation.w
