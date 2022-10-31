@@ -8,6 +8,8 @@ using UnityEngine.AI;
 public class SkeletonAnimatorChanger : MonoBehaviour
 {
     [SerializeField] private RuntimeAnimatorController _walk;
+    [SerializeField] private RuntimeAnimatorController _attack;
+    [SerializeField] private float _attackRange = 1;
 
     private Animator _animator;
     private Transform _target;
@@ -23,7 +25,6 @@ public class SkeletonAnimatorChanger : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
-            _animator.runtimeAnimatorController = _walk;
             _target = player.transform;
             StartCoroutine(RunningToTargetCoroutine());
         }
@@ -33,9 +34,15 @@ public class SkeletonAnimatorChanger : MonoBehaviour
     {
         while (true)
         {
-            if (transform.position != _target.position)
+            if (Vector3.Distance(transform.position, _target.position) > _attackRange)
             {
                 _agent.SetDestination(_target.position);
+                _animator.runtimeAnimatorController = _walk;
+            }
+            else
+            {
+                _agent.SetDestination(transform.position);
+                _animator.runtimeAnimatorController = _attack;
             }
 
             yield return null;
