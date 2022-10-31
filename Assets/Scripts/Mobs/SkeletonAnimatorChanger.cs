@@ -10,6 +10,7 @@ public class SkeletonAnimatorChanger : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController _walk;
 
     private Animator _animator;
+    private Transform _target;
     private NavMeshAgent _agent;
 
     private void Start()
@@ -23,13 +24,21 @@ public class SkeletonAnimatorChanger : MonoBehaviour
         if (other.TryGetComponent(out Player player))
         {
             _animator.runtimeAnimatorController = _walk;
-            StartCoroutine(RunningToTargetCoroutine(player.transform));
+            _target = player.transform;
+            StartCoroutine(RunningToTargetCoroutine());
         }
     }
 
-    private IEnumerator RunningToTargetCoroutine(Transform target) 
+    private IEnumerator RunningToTargetCoroutine() 
     {
-            if (!_agent.SetDestination(target.position))
-                yield return null;
+        while (true)
+        {
+            if (transform.position != _target.position)
+            {
+                _agent.SetDestination(_target.position);
+            }
+
+            yield return null;
+        }
     }
 }
