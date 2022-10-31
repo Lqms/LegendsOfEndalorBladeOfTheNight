@@ -2835,6 +2835,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.4398431
       objectReference: {fileID: 0}
+    - target: {fileID: 5749503898121411399, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
+      propertyPath: _walkableLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 5847326077335534370, guid: 07cec0fb182472044aae81b01693fd85, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.10222881
